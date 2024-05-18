@@ -6,7 +6,7 @@ import {
   //FindOptionsWhere,
   Repository,
 } from 'typeorm';
-import { BaseInterfaceRepository } from './base.interface.repositpry';
+import { BaseInterfaceRepository } from './base.interface.repository';
 
 interface HasId {
   //id: any;

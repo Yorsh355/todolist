@@ -38,8 +38,8 @@ export const DataSourseConfig: DataSourceOptions = {
   password: configService.get('DB_PASSWORD'),
   database: configService.get('DB_NAME'),
 
-  entities: [__dirname + '/../**/**/*.entity{.ts, .js}'],
-  migrations: [__dirname + '/../migrations/*{.ts, .js}'],
+  entities: [__dirname + '/../**/**/*.entity{.ts,.js}'],
+  migrations: [__dirname + '/../../migrations/*{.ts,.js}'],
   synchronize: false,
   migrationsRun: true,
   logging: false,
