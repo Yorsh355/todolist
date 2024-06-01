@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Controller, Post, Body, Res, Get, Param } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { HttpResponse } from '../../common/HttpResponse';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -14,6 +15,24 @@ export class UsersController {
     @Body() createUserDto: CreateUserDto,
   ): Promise<void> {
     const httpResponse = await this.usersService.createUser(createUserDto);
+
+    HttpResponse.convertToExpress(response, httpResponse);
+  }
+
+  // Ruta para consultar todos los usuarios
+  @Get()
+  async findAllUsers(@Res() response: Response): Promise<void> {
+    const httpResponse = await this.usersService.findAllUsers();
+
+    HttpResponse.convertToExpress(response, httpResponse);
+  }
+
+  @Get('/:userId')
+  async findUserById(
+    @Res() response: Response,
+    @Param('userId') userId: string,
+  ): Promise<void> {
+    const httpResponse = await this.usersService.findUserById(userId);
 
     HttpResponse.convertToExpress(response, httpResponse);
   }

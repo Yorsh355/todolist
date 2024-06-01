@@ -50,4 +50,47 @@ export class UsersService {
       });
     }
   }
+
+  //Servicio para traer todos los usuarios
+  async findAllUsers(): Promise<HttpResponse> {
+    try {
+      const findUsers = await this.usersRepository.findAll();
+
+      return HttpResponse.create(HttpStatus.OK, {
+        message: 'OK',
+        friendlyMessage: 'Acción procesada',
+        entity: findUsers,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return HttpResponse.create(HttpStatus.BAD_REQUEST, {
+        status: 'error',
+        message: 'message.error',
+        friendlyMessage: 'error',
+      });
+    }
+  }
+
+  //Servicio para traer todos los usuarios
+  async findUserById(userId: string): Promise<HttpResponse> {
+    try {
+      const findUser = await this.usersRepository.findOneByCondition({
+        where: { userId },
+      });
+
+      return HttpResponse.create(HttpStatus.OK, {
+        message: 'OK',
+        friendlyMessage: 'Acción procesada',
+        entity: findUser,
+      });
+    } catch (error) {
+      console.error(error);
+      return HttpResponse.create(HttpStatus.BAD_REQUEST, {
+        status: 'error',
+        message: 'message.error',
+        friendlyMessage: 'error',
+      });
+    }
+  }
 }
