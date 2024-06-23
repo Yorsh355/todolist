@@ -2,6 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UsersRepository } from '../repositories/users.repository';
 import { HttpResponse } from '../../common/HttpResponse';
+import { formateDate } from '../../common/utils/dates/formatDates';
 
 @Injectable()
 export class UsersService {
@@ -10,31 +11,7 @@ export class UsersService {
   //Servicio para crear usuarios
   async createUser(createUserDto: CreateUserDto): Promise<HttpResponse> {
     try {
-      console.log('SERVICIO::', createUserDto);
-
-      const {
-        userFirstName,
-        userLastName,
-        userName,
-        userEmail,
-        userIdent,
-        userPassword,
-      } = createUserDto;
-
-      //const user = this.usersRepository.create(createUserDto);
-
-      //console.log('USER::', user);
-
-      const newUser = await this.usersRepository.save({
-        userFirstName,
-        userLastName,
-        userName,
-        userEmail,
-        userIdent,
-        userPassword,
-      });
-
-      //console.log('USER::', newUser);
+      const newUser = await this.usersRepository.save(createUserDto);
 
       return HttpResponse.create(HttpStatus.OK, {
         message: 'OK',
@@ -56,10 +33,18 @@ export class UsersService {
     try {
       const findUsers = await this.usersRepository.findAll();
 
+      const formattedAllUserDate = findUsers.map((user) => ({
+        ...user,
+        userCreateDate: formateDate(user.userCreateDate),
+        userUpdateDate: user.userUpdateDate
+          ? formateDate(user.userUpdateDate)
+          : null,
+      }));
+
       return HttpResponse.create(HttpStatus.OK, {
         message: 'OK',
         friendlyMessage: 'Acción procesada',
-        entity: findUsers,
+        entity: formattedAllUserDate,
       });
     } catch (error) {
       console.error(error);
