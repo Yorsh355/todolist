@@ -6,6 +6,7 @@ import { formateDate } from '../../common/utils/dates/formatDates';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { plainToClass } from 'class-transformer';
 import { UserDto } from '../dto/user.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -14,7 +15,12 @@ export class UsersService {
   //Servicio para crear usuarios
   async createUser(createUserDto: CreateUserDto): Promise<HttpResponse> {
     try {
-      const newUser = await this.usersRepository.save(createUserDto);
+      const { userPassword, ...userData } = createUserDto;
+
+      const newUser = await this.usersRepository.save({
+        ...userData,
+        userPassword: bcrypt.hashSync(userPassword, 10),
+      });
 
       return HttpResponse.create(HttpStatus.OK, {
         message: 'OK',
