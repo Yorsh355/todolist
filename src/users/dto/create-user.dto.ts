@@ -4,12 +4,12 @@ export class CreateUserDto {
   //Nombre del usuario
   @IsNotEmpty()
   @IsString()
-  userFirstName: string;
+  firstName: string;
 
   //Apellido del usuario
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
-  userLastName?: string;
+  lastName: string;
 
   //nombre de usuario
   @IsNotEmpty()
@@ -19,16 +19,16 @@ export class CreateUserDto {
   //Correo del usuario
   @IsNotEmpty()
   @IsString()
-  userEmail: string;
+  email: string;
 
   @IsNotEmpty()
   @IsNumber()
-  userIdent: number;
+  ident: number;
 
   //Clave usuario
   @IsNotEmpty()
   @IsString()
-  userPassword: string;
+  password: string;
 
   @IsNotEmpty()
   @IsNumber()

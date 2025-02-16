@@ -2,30 +2,30 @@ import { PartialType } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateUserDto {
-  //Nombre del usuario
+  // Nombre del usuario
   @IsOptional()
   @IsString()
-  userFirstName?: string;
+  firstName?: string;
 
-  //Nombre del usuario
+  // Nombre del usuario
   @IsOptional()
   @IsString()
-  userLastName?: string;
+  lastName?: string;
 
-  //Nombre del usuario
+  // Apellido del usuario
   @IsOptional()
   @IsString()
   userName?: string;
 
-  //Nombre del usuario
+  // Email
   @IsOptional()
   @IsString()
-  userEmail?: string;
+  email?: string;
 
   //Nombre del usuario
   @IsOptional()
   @IsNumber()
-  userIdent?: number;
+  ident?: number;
 
   @IsNotEmpty()
   @IsNumber()

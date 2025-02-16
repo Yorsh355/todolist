@@ -15,11 +15,11 @@ export class UsersService {
   //Servicio para crear usuarios
   async createUser(createUserDto: CreateUserDto): Promise<HttpResponse> {
     try {
-      const { userPassword, ...userData } = createUserDto;
+      const { password, ...userData } = createUserDto;
 
       const newUser = await this.usersRepository.save({
         ...userData,
-        userPassword: bcrypt.hashSync(userPassword, 10),
+        password: bcrypt.hashSync(password, 10),
       });
 
       return HttpResponse.create(HttpStatus.OK, {
@@ -44,10 +44,8 @@ export class UsersService {
 
       const formattedAllUserDate = findUsers.map((user) => ({
         ...user,
-        userCreateDate: formateDate(user.userCreateDate),
-        userUpdateDate: user.userUpdateDate
-          ? formateDate(user.userUpdateDate)
-          : null,
+        createdDate: formateDate(user.createdDate),
+        updatedDate: user.updatedDate ? formateDate(user.updatedDate) : null,
       }));
 
       const usersDto = formattedAllUserDate.map((user) =>
@@ -71,10 +69,10 @@ export class UsersService {
   }
 
   //Servicio para traer todos los usuarios
-  async findUserById(userId: string): Promise<HttpResponse> {
+  async findUserById(id: string): Promise<HttpResponse> {
     try {
       const findUser = await this.usersRepository.findOneByCondition({
-        where: { userId },
+        where: { id },
       });
 
       if (!findUser) {

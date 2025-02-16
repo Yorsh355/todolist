@@ -5,25 +5,25 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('users')
 export class User {
   //Id usuario
   @PrimaryGeneratedColumn('uuid')
-  userId: string;
+  id: string;
 
   //Nombre
   @Column({
     type: 'text',
     nullable: false,
   })
-  userFirstName: string;
+  firstName: string;
 
   //apellido
   @Column({
     type: 'text',
-    nullable: true,
+    nullable: false,
   })
-  userLastName?: string;
+  lastName?: string;
 
   //nombre de usuario
   @Column({
@@ -39,21 +39,22 @@ export class User {
     nullable: false,
     unique: true,
   })
-  userEmail: string;
+  email: string;
 
   //número de identificación
   @Column({
     type: 'numeric',
     nullable: false,
+    unique: true,
   })
-  userIdent: number;
+  ident: number;
 
   //Clave
   @Column({
     type: 'text',
     nullable: false,
   })
-  userPassword: string;
+  password: string;
 
   //usuario de creación
   @Column({
@@ -67,7 +68,7 @@ export class User {
     type: 'timestamp',
     nullable: false,
   })
-  userCreateDate: Date;
+  createdDate: Date;
 
   //usuario de actualización
   @Column({
@@ -81,5 +82,5 @@ export class User {
     type: 'timestamp',
     nullable: true,
   })
-  userUpdateDate?: Date;
+  updatedDate?: Date;
 }
