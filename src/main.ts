@@ -19,8 +19,8 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('TODOLIST')
-    .setDescription('TODOLIST endponts')
+    .setTitle('TODOLIST RESTFul API')
+    .setDescription('TODOLIST endpoints')
     .setVersion('1.0')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
