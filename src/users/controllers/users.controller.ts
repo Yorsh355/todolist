@@ -37,6 +37,8 @@ export class UsersController {
   }
 
   @Get('/:userId')
+  @ApiResponse({ status: 201, description: 'Acción procesada', type: User })
+  @ApiResponse({ status: 400, description: 'Bad request' })
   async findUserById(
     @Res() response: Response,
     @Param('userId') userId: string,
@@ -47,6 +49,8 @@ export class UsersController {
   }
 
   @Patch(':userId')
+  @ApiResponse({ status: 201, description: 'Acción procesada', type: User })
+  @ApiResponse({ status: 400, description: 'Bad request' })
   async updateUser(
     @Res() response: Response,
     @Param('userId') userId: string,
